@@ -21,6 +21,8 @@ model.fit(X_train,y_train)
 
 y_pred = model.predict(X_test)
 
+
+# classification report
 print(classification_report(y_test,y_pred))
 
 test_data = [[25,1,72.5,1]]
