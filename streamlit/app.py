@@ -1,6 +1,7 @@
 import streamlit as st
 import joblib
 import pandas as pd
+from PIL import Image
 
 model = joblib.load('iris_model.pkl')
 
@@ -18,8 +19,22 @@ petal_width = st.number_input("Petal Width (cm) 0.1, 2.5")
 
 features = [[sepal_length, sepal_width, petal_length, petal_width]]
 
+flower_names = {
+    0:'setosa',
+    1:"versicolor",
+    2:'virginica'
+}
+
+flowers_img = {
+    'setosa':"images/setosa.png",
+    "versicolor":"images/vercicolor.png",
+    "virginica" : "images/virginica.png"
+}
 if st.button("Predict"):
     prediction = model.predict(features)[0]
-    st.success(f"Predicted Iris Class: {prediction}")
+    flower = flower_names[prediction]
+    st.success(f"Predicted Iris Class: {flower.title()}")
 
-st.write("Hello")
+    image = Image.open(flowers_img[flower])
+    st.image(image,caption=flower.title(),width=350,)
+
